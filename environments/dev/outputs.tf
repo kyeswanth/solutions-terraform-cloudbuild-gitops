@@ -14,6 +14,6 @@
 
 
 output "network" {
-  value = "${module.vpc.network}"
+  value = module.vpc.network
 }
 
