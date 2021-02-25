@@ -21,8 +21,8 @@ provider "google" {
   project = "${var.project}"
 }
 
-module "vpc" {
-  source  = "../../modules/vpc"
+module "firewall" {
+  source  = "../../modules/firewall"
   project = "${var.project}"
-  env     = "${local.env}"
+  subnet  = "aug21-net"
 }
