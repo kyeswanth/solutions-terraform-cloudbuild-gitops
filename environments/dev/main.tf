@@ -14,15 +14,15 @@
 
 
 locals {
-  "env" = "dev"
+  env = "dev"
 }
 
 provider "google" {
-  project = "${var.project}"
+  project = var.project
 }
 
 module "firewall" {
   source  = "../../modules/firewall"
-  project = "${var.project}"
+  project = var.project
   subnet  = "aug21-net"
 }
