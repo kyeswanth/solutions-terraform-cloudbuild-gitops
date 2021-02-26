@@ -13,16 +13,9 @@
 # limitations under the License.
 
 
-locals {
-  env = "dev"
-}
-
-provider "google" {
-  project = var.project
-}
-
-module "firewall" {
-  source  = "../../modules/firewall"
-  project = var.project
-  subnet  = "aug21-net"
+terraform {
+  backend "gcs" {
+    bucket = "infra-dev-tfstate"
+    prefix = "env/dev"
+  }
 }
