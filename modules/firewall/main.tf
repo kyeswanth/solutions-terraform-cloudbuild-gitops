@@ -13,9 +13,13 @@
 # limitations under the License.
 
 
+locals {
+  network = "${var.subnet}"
+}
+
 resource "google_compute_firewall" "allow-http" {
   name    = "${local.network}-allow-http"
-  network = "aug21-net"
+  network = "${local.network}"
   project = "${var.project}"
 
   allow {
