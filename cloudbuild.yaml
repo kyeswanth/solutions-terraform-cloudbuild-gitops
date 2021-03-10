@@ -13,80 +13,54 @@
 # limitations under the License.
 
 
-steps:
-- id: 'branch name'
-  name: 'alpine'
-  entrypoint: 'sh'  
-  args: 
-  - '-c'
-  - | 
-      echo "***********************"
-      echo "$BRANCH_NAME"
-      echo "***********************"
-
+steps:  
 - id: 'tf init'
-  name: 'hashicorp/terraform:0.11.14'
+  name: 'hashicorp/terraform:0.14.6'
   entrypoint: 'sh'
   args: 
   - '-c'
   - |
-      if [ -d "environments/$BRANCH_NAME/" ]; then
-        cd environments/$BRANCH_NAME
+      if [ $_ENV == $_ENV_TYPE ]; then
+        cd dev/terraform
         terraform init
-      else
-        for dir in environments/*/
-        do 
-          cd ${dir}   
-          env=${dir%*/}
-          env=${env#*/}
-          echo ""
-          echo "*************** TERRAFORM INIT ******************"
-          echo "******* At environment: ${env} ********"
-          echo "*************************************************"
-          terraform init || exit 1
-          cd ../../
-        done
-      fi 
-
-# [START tf-plan]
-- id: 'tf plan'
-  name: 'hashicorp/terraform:0.11.14'
-  entrypoint: 'sh'
-  args: 
-  - '-c'
-  - | 
-      if [ -d "environments/$BRANCH_NAME/" ]; then
-        cd environments/$BRANCH_NAME
-        terraform plan
-      else
-        for dir in environments/*/
-        do 
-          cd ${dir}   
-          env=${dir%*/}
-          env=${env#*/}  
-          echo ""
-          echo "*************** TERRAFOM PLAN ******************"
-          echo "******* At environment: ${env} ********"
-          echo "*************************************************"
-          terraform plan || exit 1
-          cd ../../
-        done
-      fi 
-# [END tf-plan]
-
-# [START tf-apply]
-- id: 'tf apply'
-  name: 'hashicorp/terraform:0.11.14'
-  entrypoint: 'sh'
-  args: 
-  - '-c'
-  - | 
-      if [ -d "environments/$BRANCH_NAME/" ]; then
-        cd environments/$BRANCH_NAME      
-        terraform apply -auto-approve
-      else
-        echo "***************************** SKIPPING APPLYING *******************************"
-        echo "Branch '$BRANCH_NAME' does not represent an oficial environment."
-        echo "*******************************************************************************"
       fi
-# [END tf-apply]      
+      if [ $_ENV == $_ENV_TYPE ]; then
+        cd prod/terraform
+        terraform init
+      fi
+
+- id: 'tf plan'
+  name: 'hashicorp/terraform:0.14.6'
+  entrypoint: 'sh'
+  args: 
+  - '-c'
+  - |
+      if [ $_ENV == $_ENV_TYPE ]; then
+        cd dev/terraform
+        terraform plan
+      fi
+      if [ $_ENV == $_ENV_TYPE ]; then
+        cd prod/terraform
+        terraform plan
+      fi
+
+- id: 'tf apply'
+  name: 'hashicorp/terraform:0.14.6'
+  entrypoint: 'sh'
+  args: 
+  - '-c'
+  - |
+      if [ $_PUSH_ENV == $_APPLY_IN ]; then
+        cd dev/terraform
+        terraform plan
+      fi
+      if [ $_PUSH_ENV == $_APPLY_IN ]; then
+        cd prod/terraform
+        terraform plan
+      fi
+
+substitutions:
+  _ENV_TYPE: "DEV"
+  _APPLY_IN: "DEV"
+   
+  
