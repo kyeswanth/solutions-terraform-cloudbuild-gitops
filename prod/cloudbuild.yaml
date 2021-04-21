@@ -6,9 +6,12 @@ steps:
   - '-c'
   - |
       cd prod
-      check_status=$(git diff --quiet HEAD master -- terraform || echo true)
+      check_status=$(git diff --quiet HEAD $_BASE_BRANCH -- terraform || echo true)
+      echo $_BASE_BRANCH
+      echo $check_status
       if [[ $check_status ]]
       then
+        echo "inside init"
         cd terraform
         terraform init
       fi
@@ -20,10 +23,12 @@ steps:
   - '-c'
   - |
       cd prod
-      check_status=$(git diff --quiet HEAD master -- terraform || echo true)
+      check_status=$(git diff --quiet HEAD $_BASE_BRANCH -- terraform || echo true)
+      echo $_BASE_BRANCH
+      echo $check_status
       if [[ $check_status ]]
       then
-        cd terraform
+        echo "inside plan"
         terraform plan
       fi
 

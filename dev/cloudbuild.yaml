@@ -6,8 +6,8 @@ steps:
   - '-c'
   - |
       cd dev
-      check_status=$(git diff --quiet HEAD master -- terraform || echo true)
-      echo $BRANCH_NAME
+      check_status=$(git diff --quiet HEAD $_BASE_BRANCH -- terraform || echo true)
+      echo $_BASE_BRANCH
       echo $check_status
       if [[ $check_status ]]
       then
@@ -23,8 +23,8 @@ steps:
   - '-c'
   - |
       cd dev
-      check_status=$(git diff --quiet HEAD master -- terraform || echo true)
-      echo $BRANCH_NAME
+      check_status=$(git diff --quiet HEAD $_BASE_BRANCH -- terraform || echo true)
+      echo $_BASE_BRANCH
       echo $check_status
       if [[ $check_status ]]
       then
