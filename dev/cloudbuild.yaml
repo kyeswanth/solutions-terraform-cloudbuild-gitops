@@ -7,7 +7,9 @@ steps:
   - |
       cd dev
       check_status=$(git diff --quiet HEAD $_BASE_BRANCH -- terraform || echo true)
-      echo $_BASE_BRANCH
+      echo "Base $_BASE_BRANCH"
+      echo "Head $_HEAD_BRANCH"
+      echo "Branch $BRANCH_NAME"
       echo $check_status
       if [[ $check_status ]]
       then
@@ -24,8 +26,9 @@ steps:
   - |
       cd dev
       check_status=$(git diff --quiet HEAD $_BASE_BRANCH -- terraform || echo true)
-      echo $_BASE_BRANCH
-      echo $check_status
+      echo "Base $_BASE_BRANCH"
+      echo "Head $_HEAD_BRANCH"
+      echo "Branch $BRANCH_NAME"
       if [[ $check_status ]]
       then
         echo "inside plan"
