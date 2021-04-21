@@ -6,7 +6,7 @@ steps:
   - '-c'
   - |
       cd prod
-      check_status=$(git diff --quiet HEAD main -- terraform || echo true)
+      check_status=$(git diff --quiet HEAD master -- terraform || echo true)
       if [[ $content ]]
       then
         cd terraform
@@ -20,7 +20,7 @@ steps:
   - '-c'
   - |
       cd prod
-      check_status=$(git diff --quiet HEAD main -- terraform || echo true)
+      check_status=$(git diff --quiet HEAD master -- terraform || echo true)
       if [[ $content ]]
       then
         cd terraform
