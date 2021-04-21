@@ -5,8 +5,7 @@ steps:
   args: 
   - '-c'
   - |
-      cd dev
-      check_status=$(git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- terraform || echo true)
+      check_status=$(git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- dev/terraform || echo true)
       echo "Base $_BASE_BRANCH"
       echo "Head $_HEAD_BRANCH"
       echo "Branch $BRANCH_NAME"
@@ -24,15 +23,14 @@ steps:
   args: 
   - '-c'
   - |
-      cd dev
-      check_status=$(git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- terraform || echo true)
+      check_status=$(git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- dev/terraform || echo true)
       echo "Base $_BASE_BRANCH"
       echo "Head $_HEAD_BRANCH"
       echo "Branch $BRANCH_NAME"
       if [[ $check_status ]]
       then
         echo "inside plan"
-        cd terraform
+        cd dev/terraform
         terraform plan
       fi
 
