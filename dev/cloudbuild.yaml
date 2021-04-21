@@ -1,24 +1,34 @@
 steps:  
 - id: 'tf init'
-  name: 'hashicorp/terraform:0.14.6'
+  name: 'hashicorp/terraform:0.14.9'
   entrypoint: 'sh'
   args: 
   - '-c'
   - |
-      cd dev/terraform
-      terraform init
+      cd dev
+      check_status=$(git diff --quiet HEAD main -- terraform || echo true)
+      if [[ $content ]]
+      then
+        cd terraform
+        terraform init
+      fi
 
 - id: 'tf plan'
-  name: 'hashicorp/terraform:0.14.6'
+  name: 'hashicorp/terraform:0.14.9'
   entrypoint: 'sh'
   args: 
   - '-c'
   - |
-      cd dev/terraform
-      terraform plan
+      cd dev
+      check_status=$(git diff --quiet HEAD main -- terraform || echo true)
+      if [[ $content ]]
+      then
+        cd terraform
+        terraform plan
+      fi
 
 - id: 'tf apply'
-  name: 'hashicorp/terraform:0.14.6'
+  name: 'hashicorp/terraform:0.14.9'
   entrypoint: 'sh'
   args: 
   - '-c'
