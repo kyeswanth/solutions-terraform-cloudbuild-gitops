@@ -13,7 +13,7 @@ steps:
       if [[ $check_status ]]
       then
         echo "inside init"
-        cd terraform
+        cd dev/terraform
         terraform init
       fi
 
