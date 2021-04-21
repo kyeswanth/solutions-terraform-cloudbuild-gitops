@@ -6,7 +6,7 @@ steps:
   - '-c'
   - |
       cd prod
-      check_status=$(git diff --quiet HEAD $_BASE_BRANCH -- terraform || echo true)
+      check_status=$(git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- terraform || echo true)
       echo "Base $_BASE_BRANCH"
       echo "Head $_HEAD_BRANCH"
       echo "Branch $BRANCH_NAME"
@@ -24,7 +24,7 @@ steps:
   - '-c'
   - |
       cd prod
-      check_status=$(git diff --quiet HEAD $_BASE_BRANCH -- terraform || echo true)
+      check_status=$(git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- terraform || echo true)
       echo "Base $_BASE_BRANCH"
       echo "Head $_HEAD_BRANCH"
       echo "Branch $BRANCH_NAME"
