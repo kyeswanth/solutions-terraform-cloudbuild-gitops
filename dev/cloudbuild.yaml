@@ -8,7 +8,7 @@ steps:
       echo "Base $_BASE_BRANCH"
       echo "Head $_HEAD_BRANCH"
       echo "Branch $BRANCH_NAME"
-      check_status=$(git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- dev/terraform || echo true)
+      check_status=$(git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- dev/terraform || echo true);
       echo "Status $check_status"
       if [[ $check_status ]]
       then
@@ -26,7 +26,7 @@ steps:
       echo "Base $_BASE_BRANCH"
       echo "Head $_HEAD_BRANCH"
       echo "Branch $BRANCH_NAME"
-      check_status=$(git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- dev/terraform || echo true)
+      check_status=$(git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- dev/terraform || echo true);
       echo "Status $check_status"
       if [[ $check_status ]]
       then
