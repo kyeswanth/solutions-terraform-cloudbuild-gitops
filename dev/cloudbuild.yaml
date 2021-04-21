@@ -7,8 +7,11 @@ steps:
   - |
       cd dev
       check_status=$(git diff --quiet HEAD master -- terraform || echo true)
+      echo $BRANCH_NAME
+      echo $check_status
       if [[ $check_status ]]
       then
+        echo "inside init"
         cd terraform
         terraform init
       fi
@@ -21,9 +24,11 @@ steps:
   - |
       cd dev
       check_status=$(git diff --quiet HEAD master -- terraform || echo true)
+      echo $BRANCH_NAME
+      echo $check_status
       if [[ $check_status ]]
       then
-        cd terraform
+        echo "inside plan"
         terraform plan
       fi
 
