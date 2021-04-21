@@ -7,7 +7,7 @@ steps:
   - |
       cd dev
       check_status=$(git diff --quiet HEAD master -- terraform || echo true)
-      if [[ $content ]]
+      if [[ $check_status ]]
       then
         cd terraform
         terraform init
@@ -21,7 +21,7 @@ steps:
   - |
       cd dev
       check_status=$(git diff --quiet HEAD master -- terraform || echo true)
-      if [[ $content ]]
+      if [[ $check_status ]]
       then
         cd terraform
         terraform plan
