@@ -8,6 +8,8 @@ steps:
       cd dev/terraform
       terraform init
 
+# Comments
+
 - id: 'tf plan'
   name: 'hashicorp/terraform:0.14.6'
   entrypoint: 'sh'
