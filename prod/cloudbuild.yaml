@@ -5,17 +5,27 @@ steps:
   args: 
   - '-c'
   - |
-      cd prod/terraform
-      terraform init
+      cd prod
+      check_status=$(git diff --quiet HEAD main -- terraform || echo true)
+      if [[ $content ]]
+      then
+        cd terraform
+        terraform init
+      fi
 
 - id: 'tf plan'
-  name: 'hashicorp/terraform:0.14.6'
+  name: 'hashicorp/terraform:0.14.9'
   entrypoint: 'sh'
   args: 
   - '-c'
   - |
-      cd prod/terraform
-      terraform plan
+      cd prod
+      check_status=$(git diff --quiet HEAD main -- terraform || echo true)
+      if [[ $content ]]
+      then
+        cd terraform
+        terraform plan
+      fi
 
 - id: 'tf apply'
   name: 'hashicorp/terraform:0.14.6'
