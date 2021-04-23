@@ -8,8 +8,7 @@ steps:
       echo "Base $_BASE_BRANCH"
       echo "Head $_HEAD_BRANCH"
       echo "Branch $BRANCH_NAME"
-      check_status = "true"
-      if [ $check_status == "true" ]; then
+      if [ $_CHECK_STATUS == "true" ]; then
         echo "inside init"
         cd dev/terraform
         terraform init
@@ -24,8 +23,7 @@ steps:
       echo "Base $_BASE_BRANCH"
       echo "Head $_HEAD_BRANCH"
       echo "Branch $BRANCH_NAME"
-      check_status = "true"
-      if [ $check_status == "true" ]; then
+      if [ $_CHECK_STATUS == "true" ]; then
         echo "inside plan"
         cd dev/terraform
         terraform plan
@@ -41,3 +39,6 @@ steps:
         cd dev/terraform
         terraform apply -auto-approve
       fi
+
+substitutions:
+  _CHECK_STATUS: true
