@@ -10,8 +10,8 @@ steps:
       echo "Branch $BRANCH_NAME"
       check_status=$(git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- prod/terraform || echo true);
       echo "Status $check_status"
-      check_status=false
-      if [ $check_status == false ]; then
+      check_status = "false"
+      if [ $check_status == "false" ]; then
         echo "inside init"
         cd prod/terraform
         terraform init
@@ -28,8 +28,8 @@ steps:
       echo "Branch $BRANCH_NAME"
       check_status=$(git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- prod/terraform || echo true);
       echo "Status $check_status"
-      check_status=false
-      if [ $check_status == false ]; then
+      check_status = s"false"
+      if [ $check_status == "false" ]; then
         echo "inside plan"
         cd prod/terraform
         terraform plan
