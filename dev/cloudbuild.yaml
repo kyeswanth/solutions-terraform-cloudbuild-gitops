@@ -19,6 +19,7 @@ steps:
   - '-c'
   - |
       pwd
+      ls -la
       git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- dev/terraform || echo true
       if [ $_CHECK_STATUS == "true" ]; then
         echo "inside plan"
