@@ -1,7 +1,7 @@
 steps:  
 - id: 'tf init'
   name: 'hashicorp/terraform:0.14.9'
-  entrypoint: 'sh'
+  entrypoint: 'bash'
   args: 
   - '-c'
   - |
@@ -15,7 +15,7 @@ steps:
 
 - id: 'tf plan'
   name: 'hashicorp/terraform:0.14.9'
-  entrypoint: 'sh'
+  entrypoint: 'bash'
   args: 
   - '-c'
   - |
@@ -33,7 +33,7 @@ steps:
 
 - id: 'tf apply'
   name: 'hashicorp/terraform:0.14.9'
-  entrypoint: 'sh'
+  entrypoint: 'bash'
   args: 
   - '-c'
   - |
@@ -43,7 +43,7 @@ steps:
       fi
 
 substitutions:
-  _CHECK_STATUS:
+  _CHECK_STATUS: false
 
 options:
     substitution_option: 'ALLOW_LOOSE'
