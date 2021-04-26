@@ -10,7 +10,7 @@ steps:
         cd solutions-terraform-cloudbuild-gitops
         git checkout $_HEAD_BRANCH
         echo $_STATUS
-        $_STATUS = $(git diff --quiet $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- prod/terraform || echo true)
+        $_STATUS = git diff --quiet $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- prod/terraform || echo true
         echo $_STATUS
         if grep -q "true" output.log; then
           echo "inside loop"
