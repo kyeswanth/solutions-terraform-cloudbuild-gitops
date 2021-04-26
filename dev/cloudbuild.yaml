@@ -5,7 +5,7 @@ steps:
   args: 
   - '-c'
   - |
-      _status = $_CHECK_STATUS
+      $_status = $_CHECK_STATUS
       echo "Status : $_status"
       if [ $_CHECK_STATUS == "true" ]; then
         echo "inside init"
