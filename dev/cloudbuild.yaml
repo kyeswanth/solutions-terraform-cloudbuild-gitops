@@ -20,15 +20,11 @@ steps:
   args: 
   - '-c'
   - |
-      git clone https://github.com/kyeswanth/solutions-terraform-cloudbuild-gitops.git
-      cd solutions-terraform-cloudbuild-gitops
-      git checkout $_HEAD_BRANCH
-      git branch -a
       echo "*********"
       git diff $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- dev/terraform
       echo "*********"
       echo "#########"
-      git diff --quiet $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- dev/terraform
+      git diff --quiet $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- dev/terraform || echo true
       echo "#########"
       if [ $_CHECK_STATUS == "true" ]; then
         echo "inside plan"
