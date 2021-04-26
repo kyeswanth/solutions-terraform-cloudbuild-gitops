@@ -20,6 +20,7 @@ steps:
       git clone https://github.com/kyeswanth/solutions-terraform-cloudbuild-gitops.git
       cd solutions-terraform-cloudbuild-gitops
       git checkout $_HEAD_BRANCH
+      git branch -a
       git diff $_HEAD_BRANCH $_BASE_BRANCH
       git diff $_HEAD_BRANCH $_BASE_BRANCH -- dev/terraform
       if [ $_CHECK_STATUS == "true" ]; then
