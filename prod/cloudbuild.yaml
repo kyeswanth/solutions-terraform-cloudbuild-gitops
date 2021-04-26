@@ -1,32 +1,20 @@
 steps:  
-- id: 'tf init'
-  name: 'hashicorp/terraform:0.14.6'
-  entrypoint: 'sh'
-  args: 
-  - '-c'
-  - |
-      $_CHECK_STATUS=$(git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- dev/terraform || echo true);
-      if [ $_CHECK_STATUS == "true" ]; then
-        echo "inside init"
-        cd prod/terraform
-        terraform init
-      fi
-
-- id: 'tf plan'
+- id: 'tf init and tf plan'
   name: 'hashicorp/terraform:0.14.9'
   entrypoint: 'sh'
   args: 
   - '-c'
   - |
-      $_CHECK_STATUS=$(git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- dev/terraform || echo true);
+      git clone https://github.com/kyeswanth/solutions-terraform-cloudbuild-gitops.git
+      cd solutions-terraform-cloudbuild-gitops
+      git checkout $_HEAD_BRANCH
+      git diff --quiet $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- prod/terraform || echo true
       if [ $_CHECK_STATUS == "true" ]; then
-        echo "inside plan"
+        echo "inside loop"
         cd prod/terraform
+        terraform init
         terraform plan
       fi
-      echo "Base $_BASE_BRANCH"
-      echo "Head $_HEAD_BRANCH"
-      echo "Branch $BRANCH_NAME"
 
 - id: 'tf apply'
   name: 'hashicorp/terraform:0.14.6'
@@ -40,4 +28,7 @@ steps:
       fi
 
 substitutions:
-  _CHECK_STATUS: "false"
+  _CHECK_STATUS: "true"
+
+options:
+    substitution_option: 'ALLOW_LOOSE'
