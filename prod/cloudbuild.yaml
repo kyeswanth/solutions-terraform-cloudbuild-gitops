@@ -42,4 +42,7 @@ steps:
       fi
 
 substitutions:
-  _CHECK_STATUS: "false"
+  _CHECK_STATUS: unused
+
+options:
+    substitution_option: 'ALLOW_LOOSE'
