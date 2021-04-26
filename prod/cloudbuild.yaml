@@ -18,8 +18,9 @@ steps:
   args: 
   - '-c'
   - |
-      echo "Status : $_CHECK_STATUS"
-      pwd
+      git clone https://github.com/kyeswanth/solutions-terraform-cloudbuild-gitops.git
+      git checkout $_HEAD_BRANCH
+      cd solutions-terraform-cloudbuild-gitops
       git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- prod/terraform || echo true
       if [ $_CHECK_STATUS == "true" ]; then
         echo "inside plan"
