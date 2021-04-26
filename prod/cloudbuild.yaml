@@ -5,11 +5,7 @@ steps:
   args: 
   - '-c'
   - |
-      if [ $_CHECK_STATUS == "true" ]; then
-        echo "inside init"
-        cd prod/terraform
-        terraform init
-      fi
+      echo ""
 
 - id: 'tf plan'
   name: 'hashicorp/terraform:0.14.9'
@@ -17,20 +13,7 @@ steps:
   args: 
   - '-c'
   - |
-      git clone https://github.com/kyeswanth/solutions-terraform-cloudbuild-gitops.git
-      cd solutions-terraform-cloudbuild-gitops
-      git checkout $_HEAD_BRANCH
       git diff
-      git diff $_HEAD_BRANCH $_BASE_BRANCH -- prod/terraform
-      if [ $_CHECK_STATUS == "true" ]; then
-        echo "inside plan"
-        cd prod/terraform
-        terraform init
-        terraform plan
-      fi
-      echo "Base $_BASE_BRANCH"
-      echo "Head $_HEAD_BRANCH"
-      echo "Branch $BRANCH_NAME"
 
 - id: 'tf apply'
   name: 'hashicorp/terraform:0.14.6'
