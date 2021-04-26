@@ -18,7 +18,7 @@ steps:
         fi
       fi
 
-- id: 'tf apply'
+- id: 'tf init, tf plan and tf apply'
   name: 'hashicorp/terraform:0.14.6'
   entrypoint: 'sh'
   args: 
