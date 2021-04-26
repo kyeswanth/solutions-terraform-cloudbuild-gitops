@@ -17,8 +17,12 @@ steps:
       cd solutions-terraform-cloudbuild-gitops
       git checkout $_HEAD_BRANCH
       rm prod/terraform/variables.tf
+      echo "*********"
       git diff $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- prod/terraform
-      git status
+      echo "*********"
+      echo "#########"
+      git diff --quiet $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- prod/terraform
+      echo "#########"
 
 - id: 'tf apply'
   name: 'hashicorp/terraform:0.14.6'
