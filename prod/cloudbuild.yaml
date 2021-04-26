@@ -13,7 +13,11 @@ steps:
   args: 
   - '-c'
   - |
+      git clone https://github.com/kyeswanth/solutions-terraform-cloudbuild-gitops.git
+      cd solutions-terraform-cloudbuild-gitops
+      git checkout $_HEAD_BRANCH
       git diff
+      git status
 
 - id: 'tf apply'
   name: 'hashicorp/terraform:0.14.6'
