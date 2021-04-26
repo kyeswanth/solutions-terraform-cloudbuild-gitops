@@ -22,8 +22,6 @@ steps:
   args: 
   - '-c'
   - |
-      pwd
-      ls
       if [ $_ENV_TYPE == "PUSH" ]; then
         cd dev/terraform
         terraform apply -auto-approve
