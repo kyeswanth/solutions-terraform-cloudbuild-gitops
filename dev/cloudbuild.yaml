@@ -1,13 +1,12 @@
 steps:  
 - id: 'tf init'
   name: 'hashicorp/terraform:0.14.9'
-  entrypoint: '/bin/bash'
+  entrypoint: 'sh'
   args: 
   - '-c'
   - |
-      $_STATUS = $_CHECK_STATUS
-      echo "Status : $_STATUS"
-      if [ $_STATUS == "true" ]; then
+      echo "Status : $_CHECK_STATUS"
+      if [ $_CHECK_STATUS == "true" ]; then
         echo "inside init"
         cd dev/terraform
         terraform init
@@ -15,12 +14,12 @@ steps:
 
 - id: 'tf plan'
   name: 'hashicorp/terraform:0.14.9'
-  entrypoint: '/bin/bash'
+  entrypoint: 'sh'
   args: 
   - '-c'
   - |
       echo "Status : $_CHECK_STATUS"
-      $_CHECK_STATUS = $(git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- dev/terraform || echo true);
+      $_CHECK_STATUS = git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- dev/terraform || echo true
       echo "Status : $_CHECK_STATUS"
       if [ $_CHECK_STATUS == "true" ]; then
         echo "inside plan"
@@ -33,7 +32,7 @@ steps:
 
 - id: 'tf apply'
   name: 'hashicorp/terraform:0.14.9'
-  entrypoint: '/bin/bash'
+  entrypoint: 'sh'
   args: 
   - '-c'
   - |
