@@ -10,7 +10,9 @@ steps:
         cd dev/terraform
         terraform init
       fi
-      git diff $_HEAD_BRANCH $_BASE_BRANCH -- dev/terraform
+      echo "Base $_BASE_BRANCH"
+      echo "Head $_HEAD_BRANCH"
+      echo "Branch $BRANCH_NAME"
 
 - id: 'tf plan'
   name: 'hashicorp/terraform:0.14.9'
@@ -23,15 +25,13 @@ steps:
       git checkout $_HEAD_BRANCH
       git branch -a
       git diff $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- dev/terraform
+      echo "----------------"
       if [ $_CHECK_STATUS == "true" ]; then
         echo "inside plan"
         cd dev/terraform
-        terraform init
         terraform plan
       fi
-      echo "Base $_BASE_BRANCH"
-      echo "Head $_HEAD_BRANCH"
-      echo "Branch $BRANCH_NAME"
+      echo "----------------"
 
 - id: 'tf apply'
   name: 'hashicorp/terraform:0.14.9'
