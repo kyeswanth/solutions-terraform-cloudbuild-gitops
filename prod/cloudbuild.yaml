@@ -17,7 +17,7 @@ steps:
       cd solutions-terraform-cloudbuild-gitops
       git checkout $_HEAD_BRANCH
       rm prod/terraform/variables.tf
-            git diff --quiet $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- prod/terraform
+      git diff $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- prod/terraform
       git status
 
 - id: 'tf apply'

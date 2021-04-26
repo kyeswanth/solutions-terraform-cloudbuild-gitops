@@ -10,6 +10,7 @@ steps:
         cd dev/terraform
         terraform init
       fi
+      git diff $_HEAD_BRANCH $_BASE_BRANCH -- dev/terraform
 
 - id: 'tf plan'
   name: 'hashicorp/terraform:0.14.9'
@@ -21,7 +22,7 @@ steps:
       cd solutions-terraform-cloudbuild-gitops
       git checkout $_HEAD_BRANCH
       git branch -a
-      git diff --quiet $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- dev/terraform
+      git diff $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- dev/terraform
       if [ $_CHECK_STATUS == "true" ]; then
         echo "inside plan"
         cd dev/terraform
