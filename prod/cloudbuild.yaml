@@ -5,17 +5,17 @@ steps:
   args: 
   - '-c'
   - |
-      git clone https://github.com/kyeswanth/solutions-terraform-cloudbuild-gitops.git
-      cd solutions-terraform-cloudbuild-gitops
-      git checkout $_HEAD_BRANCH
-      git diff --quiet $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- prod/terraform || echo true
-      echo $?
-      echo "********"
-      if [ $_CHECK_STATUS == "true" ]; then
-        echo "inside loop"
-        cd prod/terraform
-        terraform init
-        terraform plan
+      if [ $_ENV_TYPE != "PUSH" ]; then
+        git clone https://github.com/kyeswanth/solutions-terraform-cloudbuild-gitops.git
+        cd solutions-terraform-cloudbuild-gitops
+        git checkout $_HEAD_BRANCH
+        git diff --quiet $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- prod/terraform || echo true > output.log
+        if grep -q "true" output.log; then
+          echo "inside loop"
+          cd prod/terraform
+          terraform init
+          terraform plan
+        fi
       fi
 
 - id: 'tf apply'
@@ -26,11 +26,7 @@ steps:
   - |
       if [ $_ENV_TYPE == "PUSH" ]; then
         cd prod/terraform
+        terraform init
+        terraform plan
         terraform apply -auto-approve
       fi
-
-substitutions:
-  _CHECK_STATUS: "true"
-
-options:
-    substitution_option: 'ALLOW_LOOSE'
