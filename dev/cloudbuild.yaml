@@ -1,7 +1,7 @@
 steps:  
 - id: 'tf init'
   name: 'hashicorp/terraform:0.14.9'
-  entrypoint: 'bash'
+  entrypoint: '/bin/bash'
   args: 
   - '-c'
   - |
@@ -15,7 +15,7 @@ steps:
 
 - id: 'tf plan'
   name: 'hashicorp/terraform:0.14.9'
-  entrypoint: 'bash'
+  entrypoint: '/bin/bash'
   args: 
   - '-c'
   - |
@@ -33,7 +33,7 @@ steps:
 
 - id: 'tf apply'
   name: 'hashicorp/terraform:0.14.9'
-  entrypoint: 'bash'
+  entrypoint: '/bin/bash'
   args: 
   - '-c'
   - |
