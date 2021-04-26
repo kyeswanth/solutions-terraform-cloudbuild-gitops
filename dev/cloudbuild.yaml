@@ -18,7 +18,9 @@ steps:
   args: 
   - '-c'
   - |
+      echo "Status : $_CHECK_STATUS"
       $_CHECK_STATUS=$(git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- dev/terraform || echo true);
+      echo "Status : $_CHECK_STATUS"
       if [ $_CHECK_STATUS == "true" ]; then
         echo "inside plan"
         cd dev/terraform
