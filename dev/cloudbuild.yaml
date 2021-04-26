@@ -5,7 +5,6 @@ steps:
   args: 
   - '-c'
   - |
-      echo "Status : $_CHECK_STATUS"
       if [ $_CHECK_STATUS == "true" ]; then
         echo "inside init"
         cd dev/terraform
@@ -25,6 +24,7 @@ steps:
       if [ $_CHECK_STATUS == "true" ]; then
         echo "inside plan"
         cd dev/terraform
+        terraform init
         terraform plan
       fi
       echo "Base $_BASE_BRANCH"
