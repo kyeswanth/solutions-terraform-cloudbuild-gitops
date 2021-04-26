@@ -6,12 +6,10 @@ steps:
   - '-c'
   - |
       if [ $_ENV_TYPE != "PUSH" ]; then
-        git clone https://github.com/kyeswanth/solutions-terraform-cloudbuild-gitops.git
-        cd solutions-terraform-cloudbuild-gitops
+        git clone $_GIT_REPO_URL
+        cd $_REPO_DIR_PATH
         git checkout $_HEAD_BRANCH
-        echo $_STATUS
-        $_STATUS = git diff --quiet $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- prod/terraform || echo true
-        echo $_STATUS
+        git diff --quiet $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- prod/terraform || echo true > output.log
         if grep -q "true" output.log; then
           echo "inside loop"
           cd prod/terraform
@@ -32,6 +30,3 @@ steps:
         terraform plan
         terraform apply -auto-approve
       fi
-
-substitutions:
-  _STATUS: "false"
