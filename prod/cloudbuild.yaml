@@ -34,4 +34,4 @@ steps:
       fi
 
 substitutions:
-  _STATUS: false
+  _STATUS: "false"
