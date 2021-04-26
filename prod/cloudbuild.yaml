@@ -19,8 +19,8 @@ steps:
   - '-c'
   - |
       echo "Status : $_CHECK_STATUS"
+      pwd
       git diff --quiet $_HEAD_BRANCH $_BASE_BRANCH -- prod/terraform || echo true
-      echo "Status : $_CHECK_STATUS"
       if [ $_CHECK_STATUS == "true" ]; then
         echo "inside plan"
         cd prod/terraform
