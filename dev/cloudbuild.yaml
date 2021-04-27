@@ -5,10 +5,9 @@ steps:
   args: 
   - '-c'
   - |
-      echo  "HEAD REPO URL::: $_HEAD_REPO_URL"
-      echo  "REPO NAME::: $REPO_NAME"
+      echo "HEAD REPO URL::: $_HEAD_REPO_URL"
       if [ $_ENV_TYPE != "PUSH" ]; then
-        git clone $_GIT_REPO_URL
+        git clone $_HEAD_REPO_URL
         cd $_REPO_DIR_PATH
         git checkout $_HEAD_BRANCH
         git diff --quiet $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- dev/terraform || echo true > output.log
