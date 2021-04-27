@@ -5,6 +5,8 @@ steps:
   args: 
   - '-c'
   - |
+      echo  "HEAD REPO URL::: $_HEAD_REPO_URL"
+      echo  "REPO NAME::: $REPO_NAME"
       if [ $_ENV_TYPE != "PUSH" ]; then
         git clone $_GIT_REPO_URL
         cd $_REPO_DIR_PATH
