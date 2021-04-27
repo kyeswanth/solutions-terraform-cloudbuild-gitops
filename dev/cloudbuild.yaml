@@ -7,9 +7,9 @@ steps:
   - |
       if [ $_ENV_TYPE != "PUSH" ]; then
         git clone $_HEAD_REPO_URL
-        cd $_REPO_DIR_PATH
+        cd $REPO_NAME
         git checkout $_HEAD_BRANCH
-        git diff --quiet $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- dev/terraform || echo true > output.log
+        git diff --quiet $_HEAD_BRANCH remotes/origin/$_BASE_BRANCH -- $_CHECK_DIR_PATH || echo true > output.log
         if grep -q "true" output.log; then
           echo "inside loop"
           cd dev/terraform
