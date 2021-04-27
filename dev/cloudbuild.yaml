@@ -25,7 +25,9 @@ steps:
   - '-c'
   - |
       if [ $_ENV_TYPE == "PUSH" ]; then
-        cd $_CHECK_DIR_PATH
+        ls -la
+        echo "$_CHECK_DIR_PATH"
+        cd dev/terraform
         terraform init
         terraform plan
         terraform apply -auto-approve
